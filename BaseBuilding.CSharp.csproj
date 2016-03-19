@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Controllers\WorldController.cs" />
     <Compile Include="Assets\model\InstalledObject.cs" />
     <Compile Include="Assets\model\LooseObject.cs" />
     <Compile Include="Assets\model\Tile.cs" />
