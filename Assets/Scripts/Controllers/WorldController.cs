@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 
+
 public class WorldController : MonoBehaviour
 {
     public static WorldController Instance { get; protected set; }
 
     [SerializeField]
     private Sprite floorSprite; // reference to the floor sprite
+
+    [SerializeField] private Sprite grassSprite;
     public World World { get; protected set; } //reference to the World
-    private Dictionary<Tile, GameObject> tileGameObjectMap; 
+    private Dictionary<Tile, GameObject> tileGameObjectMap;
+    private Tile _centerTile;
 	// Use this for initialization
 	void Start ()
 	{
@@ -19,7 +23,7 @@ public class WorldController : MonoBehaviour
 	    }
 	    Instance = this;
 	    World = new World();
-	    tileGameObjectMap = new Dictionary<Tile, GameObject>();
+        tileGameObjectMap = new Dictionary<Tile, GameObject>();
 	    for (int x = 0; x < World.Width; x++)
 	    {
 	        for (int y = 0; y < World.Height; y++)
@@ -27,15 +31,27 @@ public class WorldController : MonoBehaviour
                 Tile tile_data = World.GetTileAt(x, y); //get the tile data
                 GameObject tile_go = new GameObject(); // create a gameobject for each tile
 	            tile_go.name = "Tile_" + x + "_" + y; // name the tile
-                tile_go.transform.position = new Vector3(tile_data.X, tile_data.Y, 0); //move the game object to its correct position
+                tile_go.transform.position = new Vector3(tile_data.X, tile_data.Y, 0); //move the game object to its correct position;
                 tileGameObjectMap.Add(tile_data, tile_go);
-                tile_go.AddComponent<SpriteRenderer>(); // add an empty sprite renderer
-                tile_go.transform.SetParent(this.transform, true);
+                SpriteRenderer tileSr = tile_go.AddComponent<SpriteRenderer>(); // add an empty sprite renderer
+	            if (x < World.Width/2 + 5 && x > World.Width/2 - 5 && y < World.Width/2 + 5 && y > World.Width/2 - 5)
+	            {
+	                tileSr.sprite = floorSprite;
+	            }
+	            else
+	            {
+	                tileSr.sprite = grassSprite;
+	            }
+	            tile_go.transform.SetParent(this.transform, true);
                 /*This will register the callback passing only the tile like it expects and inside call the method in this class passing expected parameters*/
                 tile_data.RegisterTileTypeChangedCallback(OnTileTypeChanged);
 	        }
 	    }
-        /*World.RandomiseTiles();*/
+        _centerTile = World.GetTileAt(World.Width / 2, World.Height / 2);
+	    GameObject centerTileGo = tileGameObjectMap[_centerTile];
+	    Camera.main.transform.position = new Vector3(centerTileGo.transform.position.x, centerTileGo.transform.position.y, -10);
+
+	    /*World.RandomiseTiles();*/
 	}
     //NOT CURRENTLY IN USE
     //this will remove everything from the dictionary and destroy all visual gameobjects leaving the data intact
@@ -68,13 +84,13 @@ public class WorldController : MonoBehaviour
             Debug.LogError("The returned GameObject is null");
             return;
         }
-        if (tile_data.Type == TileType.Floor)
+        if (tile_data.Type == TileType.Rough)
+        {
+            tile_go.GetComponent<SpriteRenderer>().sprite = grassSprite;
+        }
+        else if (tile_data.Type == TileType.Clear)
         {
             tile_go.GetComponent<SpriteRenderer>().sprite = floorSprite;
-        }
-        else if (tile_data.Type == TileType.Empty)
-        {
-            tile_go.GetComponent<SpriteRenderer>().sprite = null;
         }
         else
         {

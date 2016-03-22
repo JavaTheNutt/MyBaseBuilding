@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
+//todo Break this into several classes
 public class MouseController : MonoBehaviour
 {
     [SerializeField]
@@ -9,7 +10,7 @@ public class MouseController : MonoBehaviour
     private Vector3 _lastFramePosition;
     private Vector3 _currentFramePosition;
     private List<GameObject> _dragPreviewGameObjects;
-    private TileType _currentType = TileType.Floor;
+    private TileType _currentType = TileType.Rough;
 
 
     private bool _isDragging;
@@ -35,7 +36,6 @@ public class MouseController : MonoBehaviour
        UpdateDragging();
         UpdateCameraMovement();
     }
-    //todo check for nullity at this call
     
 
  /*   private void UpdateCursor()
@@ -148,13 +148,9 @@ public class MouseController : MonoBehaviour
     public void SetMode_BuildFloor()
     {
         _buildModeIsObject = false;
-        _currentType = TileType.Floor;
+        _currentType = TileType.Clear;
     }
-    public void SetMode_Bulldoze()
-    {
-        _buildModeIsObject = false;
-        _currentType = TileType.Empty;
-    }
+   
 
     public void SetMode_BuildInstalledObject(string objType)
     {

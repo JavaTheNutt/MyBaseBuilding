@@ -2,14 +2,14 @@
 using System.Collections;
 using System;
 
-public enum TileType { Empty, Floor };
+public enum TileType { Rough, Clear };
 /**
 *This will represent an instance of a single tile
 */
 public class Tile
 {
     
-    TileType _type = TileType.Empty;
+    TileType _type = TileType.Rough;
 
     private Action<Tile> CbTileTypeChanged; //actions are technically an array of methods, so multiple methods can be added here to be executed sequentially 
 

@@ -37,23 +37,7 @@ public class World
     {
         installedObjectPrototypes.Add("Wall", InstalledObject.CreatePrototype("Wall", 0f, 1, 1));
     }
-    public void RandomiseTiles()
-    {
-        for (int x = 0; x < Width; x++)
-        {
-            for (int y = 0; y < Height; y++)
-            {
-                if (Random.Range(0, 2) == 1)
-                {
-                    tiles[x, y].Type = TileType.Empty;
-                }
-                else
-                {
-                    tiles[x, y].Type = TileType.Floor;
-                }
-            }
-        }
-    }
+    
     public Tile GetTileAt(int x ,int y )
     {
         if (x > Width || y > Height || x < 0 || y < 0)
