@@ -63,11 +63,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Controllers\WorldController.cs" />
-    <Compile Include="Assets\model\InstalledObject.cs" />
-    <Compile Include="Assets\model\LooseObject.cs" />
-    <Compile Include="Assets\model\Tile.cs" />
-    <Compile Include="Assets\model\World.cs" />
+    <Compile Include="Assets\Scripts\Controllers\AutomaticVerticalSize.cs" />
+    <Compile Include="Assets\Scripts\Controllers\MouseController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\WorldController.cs" />
+    <Compile Include="Assets\Scripts\Model\InstalledObject.cs" />
+    <Compile Include="Assets\Scripts\Model\LooseObject.cs" />
+    <Compile Include="Assets\Scripts\Model\Tile.cs" />
+    <Compile Include="Assets\Scripts\Model\World.cs" />
+    <Compile Include="Assets\Scripts\Utilities\SimplePool.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\DownloadedAssets\Fixed\Spritesheet\blueSheet.xml" />
+    <None Include="Assets\DownloadedAssets\Fixed\Spritesheet\greenSheet.xml" />
+    <None Include="Assets\DownloadedAssets\Fixed\Spritesheet\greySheet.xml" />
+    <None Include="Assets\DownloadedAssets\Fixed\Spritesheet\redSheet.xml" />
+    <None Include="Assets\DownloadedAssets\Fixed\Spritesheet\yellowSheet.xml" />
+    <None Include="Assets\DownloadedAssets\Fixed\license.txt" />
+    <None Include="Assets\DownloadedAssets\Space\Spritesheet\uipackSpace_sheet.xml" />
+    <None Include="Assets\DownloadedAssets\Space\license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

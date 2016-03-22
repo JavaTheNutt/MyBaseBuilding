@@ -54,4 +54,22 @@ public class Tile
     {
         CbTileTypeChanged -= callback;
     }
+
+    public bool PlaceObject(InstalledObject objInstance)
+    {
+        /*This will uninstall an installed object if null is passed*/
+        if (objInstance == null)
+        {
+            installedObject = null;
+            return true;
+        }
+
+        if (installedObject != null)
+        {
+            Debug.LogError("You are trying to add an object to a tile that already has an object installed");
+            return false;
+        }
+        installedObject = objInstance;
+        return true;
+    }
 }

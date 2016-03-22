@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+/*This class wil be used to space out the buttons in the munu bar*/
 public class AutomaticVerticalSize : MonoBehaviour
 {
     [SerializeField]

@@ -14,6 +14,7 @@ public class MouseController : MonoBehaviour
 
     private bool _isDragging;
     private bool _buildModeIsObject = false;
+    private string _buildModeObjType;
 
     private Vector3 _dragStartPosition;
 	// Use this for initialization
@@ -54,8 +55,6 @@ public class MouseController : MonoBehaviour
 
     private void UpdateDragging()
     {
-        
-      
         //Start drag
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -117,7 +116,7 @@ public class MouseController : MonoBehaviour
                     {
                         if (_buildModeIsObject)
                         {
-                            
+                           // WorldController.Instance.World.PlaceInstalledObject(_buildModeObjType, t);
                         }
                         else
                         {
@@ -157,9 +156,10 @@ public class MouseController : MonoBehaviour
         _currentType = TileType.Empty;
     }
 
-    public void Set_Mode_BuildWall()
+    public void SetMode_BuildInstalledObject(string objType)
     {
         _buildModeIsObject = true;
+        _buildModeObjType = objType;
 
     }
 }

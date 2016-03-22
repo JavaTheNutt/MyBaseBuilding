@@ -12,20 +12,33 @@ public class InstalledObject
     public int Width { get; protected set; }
     public int Height { get; protected set; }
 
-    public InstalledObject(string objectType, float movementCost = 1f, int width = 1, int height = 1)
+    protected InstalledObject()
     {
-        ObjectType = objectType;
-        MovementCost = movementCost;
-        Width = width;
-        Height = height;
+        
     }
-    public InstalledObject(Tile tile, InstalledObject proto)
+
+    public static InstalledObject CreatePrototype(string objectType, float movementCost = 1f, int width = 1, int height = 1)
     {
-        Tile = tile;
-        ObjectType = proto.ObjectType;
-        MovementCost = proto.MovementCost;
-        Width = proto.Width;
-        Height = proto.Height;
+        InstalledObject obj = new InstalledObject();
+        obj.ObjectType = objectType;
+        obj.MovementCost = movementCost;
+        obj.Width = width;
+        obj.Height = height;
+        return obj;
+    }
+    public static InstalledObject PlaceObject(Tile tile, InstalledObject proto)
+    {
+        InstalledObject obj = new InstalledObject();
+        obj.Tile = tile;
+        obj.ObjectType = proto.ObjectType;
+        obj.MovementCost = proto.MovementCost;
+        obj.Width = proto.Width;
+        obj.Height = proto.Height;
+        if (!tile.PlaceObject(obj))
+        {
+            return null;
+        }
+        return obj;
     }
     
 }

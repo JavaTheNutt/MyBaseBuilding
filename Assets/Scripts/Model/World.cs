@@ -1,30 +1,25 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
+using UnityEngine;
+using System.Collections.Generic;
+using Random = UnityEngine.Random;
+
 /**
 *This will hold an array of tiles and perform all operations on this array of tiles
 */
 public class World
 {
-    Tile[,] tiles;
-    int width;
-    int height;
+    private Tile[,] tiles;
 
-    public int Width
-    {
-        get { return width; }
-    }
+    public int Width { get; protected set; }
 
-    public int Height
-    {
-        get { return height; }
-    }
+    public int Height { get; protected set; }
 
-    
+    private Dictionary<string, InstalledObject> installedObjectPrototypes;
 
     public World(int width = 100, int height = 100)
     {
-        this.width = width;
-        this.height = height;
+        this.Width = width;
+        this.Height = height;
         tiles = new Tile[width,height];
         for (int x = 0; x < width; x++)
         {
@@ -33,14 +28,20 @@ public class World
                 tiles[x, y] = new Tile(this, x, y);
             }
         }
+        installedObjectPrototypes = new Dictionary<string, InstalledObject>();
+        CreateInstalledObjectPrototypes();
         Debug.Log("World created with " + (width * height) + " tiles");
     }
 
+    private void CreateInstalledObjectPrototypes()
+    {
+        installedObjectPrototypes.Add("Wall", InstalledObject.CreatePrototype("Wall", 0f, 1, 1));
+    }
     public void RandomiseTiles()
     {
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < Width; x++)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < Height; y++)
             {
                 if (Random.Range(0, 2) == 1)
                 {
@@ -55,7 +56,7 @@ public class World
     }
     public Tile GetTileAt(int x ,int y )
     {
-        if (x > width || y > height || x < 0 || y < 0)
+        if (x > Width || y > Height || x < 0 || y < 0)
         {
             //Debug.Log("Tile (" + x + "," + y + ") is out of bounds" );
             return null;
